@@ -1,0 +1,50 @@
+﻿@page "/counter"
+@using ToDo.Client.BackgroundServices;
+@using Microsoft.AspNetCore.SignalR.Client;
+@inject RabbitMqService Service
+@inject NavigationManager Navigation
+
+<PageTitle>Counter</PageTitle>
+
+<h1>Counter</h1>
+
+<p role="status">Current count: @currentCount</p>
+
+<button class="btn btn-primary" @onclick="IncrementCount">Click me</button>
+
+<h1>MQ Data:</h1>
+<ul>
+    @foreach (var message in messages)
+    {
+        <li>@message</li>
+    }
+</ul>
+
+@code {
+    private int currentCount = 0;
+    private List<string> messages = new List<string>();
+    private HubConnection? hubConnection;
+    //[Inject] private RabbitMqService Service { get; set; }
+
+    private void IncrementCount()
+    {
+        currentCount++;
+    }
+
+    protected override async Task OnInitializedAsync()
+    {
+    //messages = Service.GetMessages();
+
+        hubConnection = new HubConnectionBuilder()
+            .WithUrl(Navigation.ToAbsoluteUri("/messagehub"))
+            .Build();
+
+        hubConnection.On<string>("RefreshMessages", message =>
+        {
+            messages.Add(message);
+            InvokeAsync(StateHasChanged);
+        });
+
+        await hubConnection.StartAsync();
+    }
+}

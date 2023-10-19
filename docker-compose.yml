@@ -1,0 +1,21 @@
+version: '3.4'
+
+services:
+  todo.api:
+    image: ${DOCKER_REGISTRY-}todoapi
+    build:
+      context: .
+      dockerfile: src/ToDo.Api/Dockerfile
+
+  rabbitmq:
+    hostname: "rabbit_node_1"
+    image: rabbitmq:3-management
+    container_name: rabbitmq
+    ports:
+      - 5672:5672
+      - 15672:15672
+    networks:
+      - genocs
+    # network_mode: host
+    volumes:
+      - rabbitmq:/var/lib/rabbitmq
