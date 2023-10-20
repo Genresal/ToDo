@@ -33,18 +33,17 @@
 
     protected override async Task OnInitializedAsync()
     {
-    //messages = Service.GetMessages();
-
         hubConnection = new HubConnectionBuilder()
-            .WithUrl(Navigation.ToAbsoluteUri("/messagehub"))
+    //.WithUrl(Navigation.ToAbsoluteUri("/messagehub"))
+            .WithUrl("http://localhost/messagehub")
             .Build();
 
-        hubConnection.On<string>("RefreshMessages", message =>
-        {
-            messages.Add(message);
-            InvokeAsync(StateHasChanged);
-        });
+            hubConnection.On<string>("refreshMessages", message =>
+            {
+                messages.Add(message);
+                InvokeAsync(StateHasChanged);
+            });
 
-        await hubConnection.StartAsync();
+            await hubConnection.StartAsync();
     }
 }

@@ -19,7 +19,7 @@ public class RabbitMqService : BackgroundService
 
         // Не забудьте вынести значения "localhost" и "MyQueue"
         // в файл конфигурации
-        var factory = new ConnectionFactory { HostName = "localhost" };
+        var factory = new ConnectionFactory { HostName = "todo-mq" };
         _connection = factory.CreateConnection();
         _channel = _connection.CreateModel();
         _channel.QueueDeclare(queue: "MyQueue", durable: false, exclusive: false, autoDelete: false, arguments: null);
@@ -37,7 +37,7 @@ public class RabbitMqService : BackgroundService
             // Каким-то образом обрабатываем полученное сообщение
             Debug.WriteLine($"Получено сообщение: {content}");
             // To list
-            await _hubContext.Clients.All.SendAsync("RefreshMessages", content);
+            await _hubContext.Clients.All.SendAsync("refreshMessages", content);
 
             _channel.BasicAck(ea.DeliveryTag, false);
         };
