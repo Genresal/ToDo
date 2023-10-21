@@ -1,5 +1,4 @@
 using Microsoft.AspNetCore.ResponseCompression;
-using ToDo.Client.BackgroundServices;
 using ToDo.Client.Data;
 using ToDo.Client.Hubs;
 
@@ -9,11 +8,6 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddRazorPages();
 builder.Services.AddServerSideBlazor();
 builder.Services.AddSingleton<WeatherForecastService>();
-
-// Queue service
-// https://stackoverflow.com/questions/58250893/blazor-how-to-get-the-hosted-service-instance
-builder.Services.AddSingleton<RabbitMqService>();
-builder.Services.AddHostedService<RabbitMqService>();
 
 // As it named it for response compression to reduce response size
 builder.Services.AddResponseCompression(o =>

@@ -10,4 +10,9 @@
     <ProjectReference Include="..\ToDo.DAL\ToDo.DAL.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Managers\" />
+    <Folder Include="AutoMapper\" />
+  </ItemGroup>
+
 </Project>

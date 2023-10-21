@@ -2,7 +2,7 @@
 
 public class Entity : IEntity
 {
-    public long Id { get; set; }
+    public int Id { get; set; }
 
     public DateTime Created { get; set; } = DateTime.UtcNow;
 

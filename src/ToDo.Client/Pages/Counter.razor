@@ -1,7 +1,5 @@
 ﻿@page "/counter"
-@using ToDo.Client.BackgroundServices;
 @using Microsoft.AspNetCore.SignalR.Client;
-@inject RabbitMqService Service
 @inject NavigationManager Navigation
 
 <PageTitle>Counter</PageTitle>
@@ -24,7 +22,6 @@
     private int currentCount = 0;
     private List<string> messages = new List<string>();
     private HubConnection? hubConnection;
-    //[Inject] private RabbitMqService Service { get; set; }
 
     private void IncrementCount()
     {

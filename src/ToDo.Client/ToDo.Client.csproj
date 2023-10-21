@@ -5,14 +5,10 @@
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
     <UserSecretsId>eaee38fe-4ad7-4225-8d89-e11394d3e41e</UserSecretsId>
-    <DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
-    <DockerfileContext>..\..</DockerfileContext>
   </PropertyGroup>
 
   <ItemGroup>
       <PackageReference Include="Microsoft.AspNetCore.SignalR.Client" Version="7.0.12" />
-      <PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.19.4" />
-      <PackageReference Include="RabbitMQ.Client" Version="6.6.0" />
   </ItemGroup>
 
 </Project>
